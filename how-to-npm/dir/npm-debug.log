@@ -1,0 +1,51 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'dist-tag', 'add', 'dir@latest' ]
+2 info using npm@2.7.6
+3 info using node@v0.10.33
+4 verbose dist-tag add latest to dir@latest
+5 silly mapToRegistry name dir
+6 silly mapToRegistry using default registry
+7 silly mapToRegistry registry http://localhost:15443/
+8 silly mapToRegistry uri http://localhost:15443/dir
+9 verbose request uri http://localhost:15443/-/package/dir/dist-tags
+10 verbose request no auth needed
+11 info attempt registry request try #1 at 22:43:06
+12 verbose request id 152e86c1138f7cb7
+13 http request GET http://localhost:15443/-/package/dir/dist-tags
+14 http 200 http://localhost:15443/-/package/dir/dist-tags
+15 silly mapToRegistry name dir
+16 silly mapToRegistry using default registry
+17 silly mapToRegistry registry http://localhost:15443/
+18 silly mapToRegistry uri http://localhost:15443/dir
+19 verbose request uri http://localhost:15443/-/package/dir/dist-tags/latest
+20 verbose request sending authorization for write operation
+21 info attempt registry request try #1 at 22:43:06
+22 http request PUT http://localhost:15443/-/package/dir/dist-tags/latest
+23 http 403 http://localhost:15443/-/package/dir/dist-tags/latest
+24 verbose headers { 'content-type': 'application/json',
+24 verbose headers   date: 'Fri, 17 Apr 2015 05:43:06 GMT',
+24 verbose headers   connection: 'keep-alive',
+24 verbose headers   'transfer-encoding': 'chunked' }
+25 verbose request invalidating /Users/tina/.npm/localhost_15443/-/package/dir/dist-tags/latest on PUT
+26 verbose stack Error: Registry returned 403 for PUT on http://localhost:15443/-/package/dir/dist-tags/latest
+26 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:239:14)
+26 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:170:14)
+26 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:360:22)
+26 verbose stack     at Request.emit (events.js:98:17)
+26 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1202:14)
+26 verbose stack     at Request.emit (events.js:117:20)
+26 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1150:12)
+26 verbose stack     at IncomingMessage.emit (events.js:117:20)
+26 verbose stack     at _stream_readable.js:943:16
+26 verbose stack     at process._tickCallback (node.js:419:13)
+27 verbose statusCode 403
+28 verbose cwd /Users/tina/NodeSchool/how-to-npm/dir
+29 error Darwin 14.0.0
+30 error argv "node" "/usr/local/bin/npm" "dist-tag" "add" "dir@latest"
+31 error node v0.10.33
+32 error npm  v2.7.6
+33 error code E403
+34 error Registry returned 403 for PUT on http://localhost:15443/-/package/dir/dist-tags/latest
+35 error If you need help, you may report this error at:
+35 error     <https://github.com/npm/npm/issues>
+36 verbose exit [ 1, true ]
