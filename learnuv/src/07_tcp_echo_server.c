@@ -42,9 +42,11 @@ static void onconnection(uv_stream_t *server, int status) {
 
   /* 4.1. Init client connection using `server->loop`, passing the client handle */
   uv_tcp_t *client = malloc(sizeof(uv_tcp_t));
+  r = uv_tcp_init(server->loop, client); 
   CHECK(r, "uv_tcp_init");
 
   /* 4.2. Accept the now initialized client connection */
+  r = uv_accept(server, (uv_stream_t*)client); 
   if (r) {
     log_error("trying to accept connection %d", r);
 
@@ -54,6 +56,7 @@ static void onconnection(uv_stream_t *server, int status) {
   }
 
   /* 5. Start reading data from client */
+  r = uv_read_start((uv_stream_t*)client, alloc_cb, read_cb); 
   CHECK(r, "uv_read_start");
 }
 
@@ -102,6 +105,7 @@ static void read_cb(uv_stream_t* client, ssize_t nread, const uv_buf_t* buf) {
   /*    We wrap the write req and buf here in order to be able to clean them both later */
   write_req_t *write_req = malloc(sizeof(write_req_t));
   write_req->buf = uv_buf_init(buf->base, nread);
+  r = uv_write(&write_req->req,(uv_stream_t*)client, &write_req->buf, NBUFS, write_cb); 
   CHECK(r, "uv_write");
 }
 
@@ -127,12 +131,14 @@ int main() {
 
   /* 2. Bind to localhost:7000 */
   struct sockaddr_in addr;
+  r = uv_ip4_addr(HOST, PORT, &addr); 
   CHECK(r, "uv_ip4_addr");
-
+  r = uv_tcp_bind(&tcp_server, (const struct sockaddr*)&addr, 0); 
   CHECK(r, "uv_tcp_bind");
 
   /* 3. Start listening */
   /* uv_tcp_t inherits uv_stream_t so casting is ok */
+  r = uv_listen((uv_stream_t*)&tcp_server, 8, onconnection); 
   CHECK(r, "uv_listen");
   log_info("Listening on %s:%d", HOST, PORT);
 
