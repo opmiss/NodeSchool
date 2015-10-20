@@ -47,9 +47,9 @@ void init(uv_loop_t *loop) {
   if (r < 0) CHECK(r, "uv_fs_open");
 
   /* 2. Create buffer and initialize it to turn it into a a uv_buf_t */
-  char buf[BUF_SIZE+1]; 
-  memset(buf, 0, sizeof(buf)); 
-  uv_buf_t iov = uv_buf_init(buf, BUF_SIZE); 
+  size_t buf_len = sizeof(char)*BUF_SIZE; 
+  char *buf = malloc(buf_len);  
+  uv_buf_t iov = uv_buf_init(buf, buf_len); 
 
   /* allow us to access the context inside read_cb */
   read_req->data = context;
