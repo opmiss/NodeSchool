@@ -1,3 +1,6 @@
 function foo(){
-	var bar; 
+	var bar;
+	function zip(){
+		var quux; 
+	}
 }
